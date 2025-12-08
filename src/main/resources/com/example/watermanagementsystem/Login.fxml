@@ -11,7 +11,7 @@
 
 <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: white; -fx-padding: 30;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.watermanagementsystem.controllers.LoginController">
     <children>
-        <Label text="WASA Management System">
+        <Label text="Water Management System">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>

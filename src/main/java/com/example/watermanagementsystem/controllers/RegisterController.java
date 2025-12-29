@@ -7,17 +7,47 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class RegisterController {
-    @FXML
-    private Label messageLabel;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label messageLabel;
+
     @FXML
     protected void handleRegisterButton(ActionEvent event) {
-        messageLabel.setText("Create new username and password");
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            messageLabel.setTextFill(javafx.scene.paint.Color.RED);
+            messageLabel.setText("Username and Password cannot be empty.");
+            return;
+        }
+
+        boolean success = DatabaseHandler.registerUser(username, password);
+
+        if (success) {
+            messageLabel.setTextFill(javafx.scene.paint.Color.GREEN);
+            messageLabel.setText("Account created successfully! Redirecting to Login...");
+            usernameField.clear();
+            passwordField.clear();
+
+            try {
+                handleBackToMainLogin(event);
+            } catch (IOException _) {
+            }
+
+        } else {
+            messageLabel.setTextFill(javafx.scene.paint.Color.RED);
+            messageLabel.setText("Registration failed. Username may already exist.");
+        }
     }
+
     @FXML
     protected void handleBackToMainLogin(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Login.fxml"));

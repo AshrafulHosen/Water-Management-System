@@ -11,6 +11,8 @@ module com.example.watermanagementsystem {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires javafx.graphics;
+    requires java.sql;
+    requires org.xerial.sqlitejdbc;
 
     opens com.example.watermanagementsystem to javafx.fxml;
     exports com.example.watermanagementsystem;

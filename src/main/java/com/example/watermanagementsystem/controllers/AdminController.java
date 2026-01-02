@@ -240,6 +240,7 @@ public class AdminController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Login");
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
             stage.show();
         } catch (IOException e) {
             System.err.println("Failed to return to login: " + e.getMessage());

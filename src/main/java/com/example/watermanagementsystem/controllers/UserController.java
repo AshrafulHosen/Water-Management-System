@@ -127,6 +127,7 @@ public class UserController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Login");
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
             stage.show();
         } catch (IOException e) {
             if (statusMessageLabel != null) {

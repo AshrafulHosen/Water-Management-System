@@ -44,6 +44,7 @@ public class AdminLoginController {
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.setTitle("Admin Dashboard");
                         stage.setScene(new Scene(root));
+                        stage.setFullScreen(true);
                         stage.show();
 
 
@@ -72,6 +73,7 @@ public class AdminLoginController {
         stage.setTitle("Login");
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 }

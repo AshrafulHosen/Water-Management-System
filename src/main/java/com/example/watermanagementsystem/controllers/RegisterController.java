@@ -55,6 +55,7 @@ public class RegisterController {
         stage.setTitle("Login");
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 }

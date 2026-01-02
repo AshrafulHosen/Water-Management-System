@@ -41,6 +41,7 @@ public class LoginController {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setTitle("User Dashboard");
                 stage.setScene(new Scene(root));
+                stage.setFullScreen(true);
                 stage.show();
 
             } catch (IOException e) {
@@ -67,6 +68,7 @@ public class LoginController {
         stage.setTitle(title);
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 }

@@ -2,6 +2,7 @@ package com.example.watermanagementsystem.controllers;
 
 import com.example.watermanagementsystem.MainApplication;
 import com.example.watermanagementsystem.models.User;
+import com.example.watermanagementsystem.utils.UIManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,31 +32,10 @@ public class AdminLoginController {
 
             User admin = DatabaseHandler.authenticateUser(username, password);
 
-            if (admin != null) {
-                if (admin.getRole().equals("Admin")) {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("AdminDashboard.fxml"));
-                        Parent root = loader.load();
-
-                        AdminController adminController = loader.getController();
-
-                        adminController.setAdmin(admin);
-
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        stage.setTitle("Admin Dashboard");
-                        stage.setScene(new Scene(root));
-                        stage.setFullScreen(true);
-                        stage.show();
-
-
-                    } catch (IOException e) {
-                        System.err.println("AdminLoginController: Failed to load Admin Dashboard: " + e.getMessage());
-                        e.printStackTrace();
-                        messageLabel.setText("Failed to load Admin Dashboard: " + e.getMessage());
-                    }
-                } else {
-                    messageLabel.setText("Invalid admin username/password.");
-                }
+            if (admin != null && admin.getRole().equals("Admin")) {
+                AdminController adminController = (AdminController) UIManager.getController("AdminDashboard.fxml");
+                adminController.setAdmin(admin);
+                UIManager.changeScene("AdminDashboard.fxml", "Admin Dashboard");
             } else {
                 messageLabel.setText("Invalid admin username/password.");
             }
@@ -67,13 +47,7 @@ public class AdminLoginController {
     }
 
     @FXML
-    protected void handleBackToMainLogin(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Login.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Login");
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
+    protected void handleBackToMainLogin(ActionEvent event) {
+        UIManager.changeScene("Login.fxml", "Login");
     }
 }

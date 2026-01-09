@@ -3,6 +3,7 @@ package com.example.watermanagementsystem.controllers;
 import com.example.watermanagementsystem.MainApplication;
 import com.example.watermanagementsystem.models.Request;
 import com.example.watermanagementsystem.models.User;
+import com.example.watermanagementsystem.utils.UIManager;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -233,19 +234,7 @@ public class AdminController {
 
     @FXML
     protected void handleLogout(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("Login.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("Login");
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Failed to return to login: " + e.getMessage());
-            e.printStackTrace();
-        }
+        UIManager.changeScene("Login.fxml", "Login");
     }
 
     @FXML

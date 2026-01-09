@@ -2,6 +2,7 @@ package com.example.watermanagementsystem.controllers;
 
 import com.example.watermanagementsystem.MainApplication;
 import com.example.watermanagementsystem.models.User;
+import com.example.watermanagementsystem.utils.UIManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,44 +32,25 @@ public class LoginController {
         User user = DatabaseHandler.authenticateUser(username, password);
 
         if (user != null && user.getRole().equals("User")) {
-            try {
-                FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("UserDashboard.fxml"));
-                Parent root = loader.load();
-
-                UserController userController = loader.getController();
-                userController.setUser(user);
-
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setTitle("User Dashboard");
-                stage.setScene(new Scene(root));
-                stage.setFullScreen(true);
-                stage.show();
-
-            } catch (IOException e) {
-                messageLabel.setText("Failed to load User Dashboard.");
-            }
+            UserController userController = (UserController) UIManager.getController("UserDashboard.fxml");
+            userController.setUser(user);
+            UIManager.changeScene("UserDashboard.fxml", "User Dashboard");
         } else {
             messageLabel.setText("Invalid username/password or not a standard user account.");
         }
     }
 
     @FXML
-    public void handleAdminLoginButton(ActionEvent event) throws IOException {
-        loadScene(event, "AdminLogin.fxml", "Admin Login");
+    public void handleAdminLoginButton(ActionEvent event) {
+        UIManager.changeScene("AdminLogin.fxml", "Admin Login");
     }
 
     @FXML
-    public void handleCreateAccountButton(ActionEvent event) throws IOException {
-        loadScene(event, "Register.fxml", "Create Account");
+    public void handleCreateAccountButton(ActionEvent event) {
+        UIManager.changeScene("Register.fxml", "Create Account");
     }
 
-    private void loadScene(ActionEvent event, String fxmlFileName, String title) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(fxmlFileName));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
+    private void loadScene(ActionEvent event, String fxmlFileName, String title) {
+        UIManager.changeScene(fxmlFileName, title);
     }
 }

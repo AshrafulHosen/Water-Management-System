@@ -1,6 +1,7 @@
 package com.example.watermanagementsystem.controllers;
 
 import com.example.watermanagementsystem.MainApplication;
+import com.example.watermanagementsystem.utils.UIManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,10 +38,7 @@ public class RegisterController {
             usernameField.clear();
             passwordField.clear();
 
-            try {
-                handleBackToMainLogin(event);
-            } catch (IOException _) {
-            }
+            handleBackToMainLogin(event);
 
         } else {
             messageLabel.setTextFill(javafx.scene.paint.Color.RED);
@@ -49,13 +47,7 @@ public class RegisterController {
     }
 
     @FXML
-    protected void handleBackToMainLogin(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Login.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Login");
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
+    protected void handleBackToMainLogin(ActionEvent event) {
+        UIManager.changeScene("Login.fxml", "Login");
     }
 }

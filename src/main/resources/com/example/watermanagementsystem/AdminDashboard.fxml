@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -13,52 +14,54 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.watermanagementsystem.controllers.AdminController">
+<AnchorPane prefHeight="650.0" prefWidth="900.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.watermanagementsystem.controllers.AdminController">
     <children>
         <VBox prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: #d9534f;">
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: #1f3a5f;">
                     <children>
-                        <Label style="-fx-text-fill: white;" text="Admin Dashboard">
+                        <FontAwesomeIconView fill="WHITE" glyphName="USER_SECRET" size="20">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label style="-fx-text-fill: #e0e0e0;" text="Admin Dashboard">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
                             <HBox.margin>
-                                <Insets left="20.0" />
+                                <Insets left="10.0" />
                             </HBox.margin>
                         </Label>
-                        <Label fx:id="welcomeLabel" style="-fx-text-fill: white;" text="Welcome, Admin!">
+                        <Label fx:id="welcomeLabel" style="-fx-text-fill: #b0b0b0;" text="Welcome, Admin!">
                             <HBox.margin>
                                 <Insets left="30.0" />
                             </HBox.margin>
                         </Label>
-
-                        <!-- spacer to push logout button to the right -->
                         <Region HBox.hgrow="ALWAYS" />
-
-                        <!-- Logout button -->
-                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;" text="Logout">
+                        <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8;" text="Logout">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="16" />
+                            </graphic>
                             <HBox.margin>
                                 <Insets right="20.0" />
                             </HBox.margin>
                         </Button>
-
                     </children>
                 </HBox>
-
-                <SplitPane dividerPositions="0.25" VBox.vgrow="ALWAYS">
+                <SplitPane dividerPositions="0.25" style="-fx-background-color: #1e1e1e;" VBox.vgrow="ALWAYS">
                     <items>
-                        <VBox prefWidth="250.0" spacing="20.0" style="-fx-padding: 15; -fx-background-color: #e6e6e6;">
+                        <VBox prefWidth="250.0" spacing="20.0" style="-fx-padding: 15; -fx-background-color: #2a2a2a;">
                             <children>
-                                <Label text="Supply Management">
+                                <Label style="-fx-text-fill: #e0e0e0;" text="Supply Management">
                                     <font>
                                         <Font name="System Bold" size="16.0" />
                                     </font>
                                 </Label>
                                 <VBox spacing="5.0">
                                     <children>
-                                        <Label text="Current Supply Level:" />
-                                        <Label fx:id="supplyLevelLabel" style="-fx-font-weight: bold; -fx-font-size: 16;">
+                                        <Label style="-fx-text-fill: #e0e0e0;" text="Current Supply Level:" />
+                                        <Label fx:id="supplyLevelLabel" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #4fc3f7;">
                                             <font>
                                                 <Font name="System Bold" size="18.0" />
                                             </font>
@@ -67,26 +70,26 @@
                                 </VBox>
                                 <VBox spacing="5.0">
                                     <children>
-                                        <Label text="Update Supply (Liters):" />
-                                        <TextField fx:id="newSupplyField" promptText="Enter new total level" />
+                                        <Label style="-fx-text-fill: #e0e0e0;" text="Update Supply (Liters):" />
+                                        <TextField fx:id="newSupplyField" promptText="Enter new total level" style="-fx-control-inner-background: #3a3a3a; -fx-text-fill: #e0e0e0; -fx-prompt-text-fill: #888888;" />
                                     </children>
                                 </VBox>
-                                <Button mnemonicParsing="false" onAction="#handleUpdateSupply" prefWidth="150.0" style="-fx-background-color: #5bc0de; -fx-text-fill: white;" text="Update Supply" />
-                                <Label fx:id="supplyMessageLabel" wrapText="true" />
+                                <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleUpdateSupply" prefWidth="170.0" style="-fx-background-color: #0dcaf0; -fx-text-fill: #000000; -fx-padding: 10; -fx-border-radius: 4;" text="Update Supply">
+                                    <graphic>
+                                        <FontAwesomeIconView glyphName="UPLOAD" size="14" />
+                                    </graphic>
+                                </Button>
+                                <Label fx:id="supplyMessageLabel" style="-fx-text-fill: #b0b0b0;" wrapText="true" />
                             </children>
                         </VBox>
-
-                        <VBox spacing="10.0">
+                        <VBox spacing="10.0" style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
                             <children>
-                                <Label text="Pending Water Requests">
+                                <Label style="-fx-text-fill: #e0e0e0;" text="Pending Water Requests">
                                     <font>
                                         <Font name="System Bold" size="16.0" />
                                     </font>
-                                    <VBox.margin>
-                                        <Insets top="15.0" />
-                                    </VBox.margin>
                                 </Label>
-                                <TableView fx:id="requestTable" VBox.vgrow="ALWAYS">
+                                <TableView fx:id="requestTable" style="-fx-background-color: #2a2a2a; -fx-control-inner-background: #2a2a2a; -fx-text-base: #e0e0e0;" VBox.vgrow="ALWAYS">
                                     <columns>
                                         <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID" />
                                         <TableColumn fx:id="userColumn" prefWidth="100.0" text="Username" />
@@ -98,21 +101,29 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
-
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
-                                        <Button fx:id="approveButton" disable="true" mnemonicParsing="false" onAction="#handleApproveRequest" style="-fx-background-color: #5cb85c; -fx-text-fill: white;" text="Approve Selected" />
-                                        <Button fx:id="rejectButton" disable="true" mnemonicParsing="false" onAction="#handleRejectRequest" style="-fx-background-color: #d9534f; -fx-text-fill: white;" text="Reject Selected" />
-                                        <Button mnemonicParsing="false" onAction="#handleRefreshRequests" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="Refresh Requests" />
+                                        <Button fx:id="approveButton" contentDisplay="RIGHT" disable="true" mnemonicParsing="false" onAction="#handleApproveRequest" style="-fx-background-color: #198754; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 4;" text="Approve">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="14" />
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="rejectButton" contentDisplay="RIGHT" disable="true" mnemonicParsing="false" onAction="#handleRejectRequest" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 4;" text="Reject">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="TIMES" size="14" />
+                                            </graphic>
+                                        </Button>
+                                        <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleRefreshRequests" style="-fx-background-color: #0d6efd; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 4;" text="Refresh">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="REFRESH" size="14" />
+                                            </graphic>
+                                        </Button>
                                     </children>
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
                                     </VBox.margin>
                                 </HBox>
                             </children>
-                            <padding>
-                                <Insets left="15.0" right="15.0" />
-                            </padding>
                         </VBox>
                     </items>
                 </SplitPane>

@@ -1,20 +1,44 @@
 package com.example.watermanagementsystem;
 
+import com.example.watermanagementsystem.utils.UIManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Login");
+        UIManager.setPrimaryStage(stage);
+        stage.initStyle(StageStyle.DECORATED);
+
+        // Preload all scenes
+        UIManager.preloadScene("Login.fxml");
+        UIManager.preloadScene("Register.fxml");
+        UIManager.preloadScene("AdminLogin.fxml");
+        UIManager.preloadScene("UserDashboard.fxml");
+        UIManager.preloadScene("AdminDashboard.fxml");
+
+        Parent root = UIManager.getSceneRoot("Login.fxml");
+        Scene scene = new Scene(root);
+
+        stage.setTitle("Water Management System");
         stage.setScene(scene);
-        stage.setFullScreen(true);
+
+        // Set stage to fill the screen while leaving space for taskbar
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+        stage.setX(bounds.getMinX());
+        stage.setY(bounds.getMinY());
+        stage.setWidth(bounds.getWidth());
+        stage.setHeight(bounds.getHeight());
+
         stage.show();
     }
 }

@@ -79,6 +79,11 @@
                                         <FontAwesomeIconView glyphName="UPLOAD" size="14" />
                                     </graphic>
                                 </Button>
+                                <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleShowAnalytics" prefWidth="170.0" style="-fx-background-color: #fd7e14; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 4;" text="Analytics">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="14" />
+                                    </graphic>
+                                </Button>
                                 <Label fx:id="supplyMessageLabel" style="-fx-text-fill: #b0b0b0;" wrapText="true" />
                             </children>
                         </VBox>

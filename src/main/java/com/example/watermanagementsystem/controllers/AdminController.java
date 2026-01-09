@@ -99,16 +99,6 @@ public class AdminController {
         }
     }
 
-    private void updateButtonStates(Request selected) {
-        boolean canApproveReject = false;
-        if (selected != null && selected.getStatus() != null && selected.getStatus().equals("Pending")) {
-            canApproveReject = true;
-        }
-
-        if (approveButton != null) approveButton.setDisable(!canApproveReject);
-        if (rejectButton != null) rejectButton.setDisable(!canApproveReject);
-    }
-
     private void loadRequests() {
         try {
             if (requestTable == null) {
@@ -140,6 +130,22 @@ public class AdminController {
         } catch (Exception e) {
             System.err.println("Error updating supply display: " + e.getMessage());
         }
+    }
+
+    private void updateButtonStates(Request selected) {
+        if (selected != null && selected.getStatus().equals("Pending")) {
+            approveButton.setDisable(false);
+            rejectButton.setDisable(false);
+        } else {
+            approveButton.setDisable(true);
+            rejectButton.setDisable(true);
+        }
+    }
+
+
+    @FXML
+    protected void handleShowAnalytics(ActionEvent event) {
+        UIManager.changeScene("AnalyticsDashboard.fxml", "Analytics Dashboard");
     }
 
     @FXML

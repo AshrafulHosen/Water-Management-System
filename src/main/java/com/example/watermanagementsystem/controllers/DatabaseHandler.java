@@ -324,182 +324,100 @@ public class DatabaseHandler {
     }
 
     public static List<Request> getRequestsByUser(int userId) {
-        List<Request> list = new ArrayList<>();
-        Set<String> cols = getRequestColumns();
-
-        String dateSelect;
-        boolean hasDate = cols.contains("date");
-        boolean hasDateSubmitted = cols.contains("date_submitted");
-        if (hasDate && hasDateSubmitted) {
-            dateSelect = "COALESCE(date, date_submitted) AS date";
-        } else if (hasDate) {
-            dateSelect = "date AS date";
-        } else if (hasDateSubmitted) {
-            dateSelect = "date_submitted AS date";
-        } else {
-            dateSelect = "NULL AS date";
-        }
-
-        String orderBy;
-        if (hasDate || hasDateSubmitted) {
-            orderBy = "date DESC";
-        } else {
-            orderBy = "id DESC";
-        }
-
-        String sql = "SELECT id, user_id, volume, " + dateSelect + ", status FROM requests WHERE user_id = ? ORDER BY " + orderBy;
+        String sql = "SELECT * FROM requests WHERE user_id = ?";
+        List<Request> requests = new ArrayList<>();
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
             pstmt.setInt(1, userId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    double volume = rs.getDouble("volume");
-                    String dateStr = rs.getString("date");
-                    LocalDateTime date = null;
-                    if (dateStr != null && !dateStr.isEmpty()) {
-                        date = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                    }
-                    String status = null;
-                    if (cols.contains("status")) {
-                        status = rs.getString("status");
-                    }
-                    list.add(new Request(id, userId, volume, date, status));
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Query requests error: " + e.getMessage());
-        }
-        return list;
-    }
-
-    public static List<Request> getAllRequests() {
-        List<Request> list = new ArrayList<>();
-        Set<String> cols = getRequestColumns();
-
-        String dateSelect;
-        boolean hasDate = cols.contains("date");
-        boolean hasDateSubmitted = cols.contains("date_submitted");
-        if (hasDate && hasDateSubmitted) {
-            dateSelect = "COALESCE(date, date_submitted) AS date";
-        } else if (hasDate) {
-            dateSelect = "date AS date";
-        } else if (hasDateSubmitted) {
-            dateSelect = "date_submitted AS date";
-        } else {
-            dateSelect = "NULL AS date";
-        }
-
-        String orderBy;
-        if (hasDate || hasDateSubmitted) {
-            orderBy = "date DESC";
-        } else {
-            orderBy = "id DESC";
-        }
-
-        String sql = "SELECT id, user_id, volume, " + dateSelect + ", status FROM requests ORDER BY " + orderBy;
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
-                int userId = rs.getInt("user_id");
-                double volume = rs.getDouble("volume");
-                String dateStr = rs.getString("date");
-                LocalDateTime date = null;
-                if (dateStr != null && !dateStr.isEmpty()) {
-                    try {
-                        date = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                    } catch (Exception ex) {
-                    }
-                }
-                String status = null;
-                if (cols.contains("status")) {
-                    status = rs.getString("status");
-                }
-                list.add(new Request(id, userId, volume, date, status));
+                requests.add(mapRowToRequest(rs));
             }
         } catch (SQLException e) {
-            System.err.println("Query all requests error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return list;
+        return requests;
     }
 
-    public static String getUsernameById(int userId) {
-        String sql = "SELECT username FROM users WHERE id = ?";
+    public static List<Request> getApprovedRequests() {
+        String sql = "SELECT * FROM requests WHERE status = 'Approved'";
+        List<Request> requests = new ArrayList<>();
         try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("username");
-                }
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                requests.add(mapRowToRequest(rs));
             }
         } catch (SQLException e) {
-            System.err.println("Failed to get username for user " + userId + ": " + e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return null;
+        return requests;
+    }
+
+    public static List<Request> getApprovedRequestsWithUserDetails() {
+        String sql = "SELECT r.*, u.username FROM requests r JOIN users u ON r.user_id = u.id WHERE r.status = 'Approved'";
+        List<Request> requests = new ArrayList<>();
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                requests.add(mapRowToRequest(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return requests;
+    }
+
+    private static Request mapRowToRequest(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        int userId = rs.getInt("user_id");
+        double volume = rs.getDouble("volume");
+        String dateStr = rs.getString("date");
+        LocalDateTime date = null;
+        if (dateStr != null) {
+            try {
+                date = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            } catch (Exception e) {
+                // Fallback for older format if needed
+                try {
+                    date = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                } catch (Exception e2) {
+                    System.err.println("Could not parse date: " + dateStr);
+                }
+            }
+        }
+        String status = rs.getString("status");
+
+        // Check if username column exists and fetch it
+        String username = null;
+        try {
+            if (rs.findColumn("username") > 0) {
+                username = rs.getString("username");
+            }
+        } catch (SQLException e) {
+            // Column not found, which is fine
+        }
+
+        return new Request(id, userId, volume, date, status, username);
     }
 
     public static List<Request> getAllRequestsWithUsernames() {
-        List<Request> list = new ArrayList<>();
-        Set<String> cols = getRequestColumns();
-
-        String dateSelect;
-        boolean hasDate = cols.contains("date");
-        boolean hasDateSubmitted = cols.contains("date_submitted");
-        if (hasDate && hasDateSubmitted) {
-            dateSelect = "COALESCE(r.date, r.date_submitted) AS date";
-        } else if (hasDate) {
-            dateSelect = "r.date AS date";
-        } else if (hasDateSubmitted) {
-            dateSelect = "r.date_submitted AS date";
-        } else {
-            dateSelect = "NULL AS date";
-        }
-
-        String orderBy;
-        if (hasDate || hasDateSubmitted) {
-            orderBy = "date DESC";
-        } else {
-            orderBy = "r.id DESC";
-        }
-
-        String sql = "SELECT r.id, r.user_id, r.volume, " + dateSelect + ", r.status, u.username " +
-                     "FROM requests r LEFT JOIN users u ON r.user_id = u.id " +
-                     "ORDER BY " + orderBy;
+        String sql = "SELECT r.*, u.username FROM requests r JOIN users u ON r.user_id = u.id";
+        List<Request> requests = new ArrayList<>();
         try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                int id = rs.getInt("id");
-                int userId = rs.getInt("user_id");
-                double volume = rs.getDouble("volume");
-                String dateStr = rs.getString("date");
-                LocalDateTime date = null;
-                if (dateStr != null && !dateStr.isEmpty()) {
-                    try {
-                        date = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                    } catch (Exception ex) {
-                    }
-                }
-                String status = null;
-                if (cols.contains("status")) {
-                    status = rs.getString("status");
-                }
-                String username = rs.getString("username");
-                list.add(new Request(id, userId, volume, date, status, username));
+                requests.add(mapRowToRequest(rs));
             }
         } catch (SQLException e) {
-            System.err.println("Query all requests with usernames error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return list;
+        return requests;
     }
 
-    public static boolean updateRequestStatus(int requestId, String newStatus) {
+    public static boolean updateRequestStatus(int requestId, String status) {
         Set<String> cols = getRequestColumns();
         if (!cols.contains("status")) {
             try (Connection conn = DriverManager.getConnection(URL);
@@ -516,7 +434,7 @@ public class DatabaseHandler {
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, newStatus);
+            pstmt.setString(1, status);
             pstmt.setInt(2, requestId);
             int affected = pstmt.executeUpdate();
             return affected > 0;

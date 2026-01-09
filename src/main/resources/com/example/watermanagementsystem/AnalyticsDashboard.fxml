@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.watermanagementsystem.controllers.AnalyticsController">
+    <children>
+        <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="30" />
+                        <Label style="-fx-text-fill: #e0e0e0;" text="Water Usage Analytics">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <VBox spacing="15.0" style="-fx-background-color: #2a2a2a; -fx-padding: 20; -fx-border-color: #333333; -fx-border-radius: 5;">
+                    <children>
+                        <Label style="-fx-text-fill: #e0e0e0;" text="Overall Usage">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <HBox spacing="50.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label style="-fx-text-fill: #b0b0b0;" text="Total Water Supplied" />
+                                        <Label fx:id="totalSuppliedLabel" style="-fx-text-fill: #4fc3f7; -fx-font-size: 20px; -fx-font-weight: bold;" text="0 L" />
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Label style="-fx-text-fill: #b0b0b0;" text="Total Requests Approved" />
+                                        <Label fx:id="totalApprovedLabel" style="-fx-text-fill: #4fc3f7; -fx-font-size: 20px; -fx-font-weight: bold;" text="0" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <VBox spacing="15.0" style="-fx-background-color: #2a2a2a; -fx-padding: 20; -fx-border-color: #333333; -fx-border-radius: 5;">
+                    <children>
+                        <Label style="-fx-text-fill: #e0e0e0;" text="Usage by Period">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <HBox spacing="30.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label style="-fx-text-fill: #b0b0b0;" text="Today" />
+                                        <Label fx:id="dailyUsageLabel" style="-fx-text-fill: white; -fx-font-size: 18px;" text="0 L" />
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Label style="-fx-text-fill: #b0b0b0;" text="This Week" />
+                                        <Label fx:id="weeklyUsageLabel" style="-fx-text-fill: white; -fx-font-size: 18px;" text="0 L" />
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Label style="-fx-text-fill: #b0b0b0;" text="This Month" />
+                                        <Label fx:id="monthlyUsageLabel" style="-fx-text-fill: white; -fx-font-size: 18px;" text="0 L" />
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Label style="-fx-text-fill: #b0b0b0;" text="This Year" />
+                                        <Label fx:id="yearlyUsageLabel" style="-fx-text-fill: white; -fx-font-size: 18px;" text="0 L" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <VBox spacing="15.0" style="-fx-background-color: #2a2a2a; -fx-padding: 20; -fx-border-color: #333333; -fx-border-radius: 5;">
+                    <children>
+                        <Label style="-fx-text-fill: #e0e0e0;" text="User Activity">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <HBox spacing="30.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label style="-fx-text-fill: #b0b0b0;" text="Most Active User" />
+                                        <Label fx:id="mostActiveUserLabel" style="-fx-text-fill: #81c784; -fx-font-size: 18px;" text="N/A" />
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Label style="-fx-text-fill: #b0b0b0;" text="Top Water Consumer" />
+                                        <Label fx:id="topWaterConsumerLabel" style="-fx-text-fill: #81c784; -fx-font-size: 18px;" text="N/A" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                    <children>
+                        <Button fx:id="backButton" onAction="#handleBack" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 4;" text="Back to Dashboard">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" />
+                            </graphic>
+                        </Button>
+                        <Button fx:id="refreshButton" onAction="#handleRefresh" style="-fx-background-color: #0d6efd; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 4;" text="Refresh Analytics">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="REFRESH" />
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
+

@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -39,6 +40,23 @@
                             </HBox.margin>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
+                        <StackPane>
+                            <children>
+                                <Button fx:id="notificationButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleShowNotifications" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="#ffc107" glyphName="BELL" size="20" />
+                                    </graphic>
+                                </Button>
+                                <Label fx:id="notificationBadge" alignment="CENTER" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-size: 10; -fx-font-weight: bold; -fx-background-radius: 10; -fx-min-width: 18; -fx-min-height: 18; -fx-max-width: 22; -fx-max-height: 18;" text="0" visible="false" StackPane.alignment="TOP_RIGHT">
+                                    <StackPane.margin>
+                                        <Insets right="-5.0" top="-5.0" />
+                                    </StackPane.margin>
+                                </Label>
+                            </children>
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </StackPane>
                         <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8;" text="Logout">
                             <graphic>
                                 <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="16" />
@@ -67,6 +85,11 @@
                                 <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleSubmitRequest" prefWidth="170.0" style="-fx-background-color: #198754; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 4;" text="Submit Request">
                                     <graphic>
                                         <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="14" />
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleShowBilling" prefWidth="170.0" style="-fx-background-color: #0d6efd; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 4;" text="My Bills">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="CREDIT_CARD" size="14" />
                                     </graphic>
                                 </Button>
                                 <Label fx:id="statusMessageLabel" style="-fx-text-fill: #b0b0b0;" wrapText="true" />

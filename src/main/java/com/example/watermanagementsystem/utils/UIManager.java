@@ -24,6 +24,10 @@ public class UIManager {
         primaryStage = stage;
     }
 
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     public static Object getController(String fxmlFile) {
         return controllerCache.get(fxmlFile);
     }

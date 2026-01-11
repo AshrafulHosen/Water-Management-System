@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="900.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.watermanagementsystem.controllers.UserBillingController">
+    <children>
+        <VBox prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <!-- Header -->
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: #1f3a5f;">
+                    <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="CREDIT_CARD" size="20">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label style="-fx-text-fill: #e0e0e0;" text="My Bills &amp; Payments">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#handleBackToDashboard" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8;" text="Back">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" size="14" />
+                            </graphic>
+                            <HBox.margin>
+                                <Insets right="20.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+
+                <!-- Main Content -->
+                <HBox spacing="15.0" VBox.vgrow="ALWAYS" style="-fx-padding: 15;">
+                    <children>
+                        <!-- Left Panel - Summary & Pay -->
+                        <VBox prefWidth="300.0" spacing="15.0" style="-fx-background-color: #2a2a2a; -fx-padding: 15; -fx-background-radius: 10;">
+                            <children>
+                                <!-- Account Summary -->
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label text="Account Summary" style="-fx-text-fill: #4fc3f7; -fx-font-weight: bold;">
+                                            <font>
+                                                <Font size="16.0" />
+                                            </font>
+                                        </Label>
+
+                                        <!-- Total Due -->
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #dc3545; -fx-padding: 15; -fx-background-radius: 8;">
+                                            <children>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="EXCLAMATION_CIRCLE" size="24" />
+                                                <VBox>
+                                                    <children>
+                                                        <Label text="Total Amount Due" style="-fx-text-fill: #ffb0b0; -fx-font-size: 11;" />
+                                                        <Label fx:id="totalDueLabel" text="0.00" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20;" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+
+                                        <!-- Total Paid -->
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #198754; -fx-padding: 15; -fx-background-radius: 8;">
+                                            <children>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="CHECK_CIRCLE" size="24" />
+                                                <VBox>
+                                                    <children>
+                                                        <Label text="Total Paid" style="-fx-text-fill: #b0f0b0; -fx-font-size: 11;" />
+                                                        <Label fx:id="totalPaidLabel" text="0.00" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20;" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+
+                                <!-- Make Payment Section -->
+                                <VBox spacing="10.0" style="-fx-padding: 10 0 0 0;">
+                                    <children>
+                                        <Label text="Make Payment" style="-fx-text-fill: #4fc3f7; -fx-font-weight: bold;">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </Label>
+
+                                        <VBox spacing="5.0">
+                                            <children>
+                                                <Label text="Select Bill:" style="-fx-text-fill: #e0e0e0; -fx-font-size: 12;" />
+                                                <ComboBox fx:id="billComboBox" prefWidth="270.0" promptText="Select unpaid bill" style="-fx-background-color: #3a3a3a;" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox spacing="5.0">
+                                            <children>
+                                                <Label text="Payment Amount ($):" style="-fx-text-fill: #e0e0e0; -fx-font-size: 12;" />
+                                                <TextField fx:id="paymentAmountField" promptText="Enter amount" style="-fx-background-color: #3a3a3a; -fx-text-fill: #e0e0e0; -fx-prompt-text-fill: #888888;" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox spacing="5.0">
+                                            <children>
+                                                <Label text="Payment Method:" style="-fx-text-fill: #e0e0e0; -fx-font-size: 12;" />
+                                                <ComboBox fx:id="paymentMethodCombo" prefWidth="270.0" promptText="Select method" style="-fx-background-color: #3a3a3a;" />
+                                            </children>
+                                        </VBox>
+
+                                        <Button mnemonicParsing="false" onAction="#handleMakePayment" prefWidth="270.0" style="-fx-background-color: #198754; -fx-text-fill: white; -fx-padding: 12; -fx-font-weight: bold; -fx-cursor: hand;" text="Pay Now">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="CREDIT_CARD" size="14" />
+                                            </graphic>
+                                        </Button>
+
+                                        <Label fx:id="messageLabel" style="-fx-text-fill: #b0b0b0;" wrapText="true" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+
+                        <!-- Right Panel - Bills & Payment History -->
+                        <VBox spacing="10.0" style="-fx-background-color: #2a2a2a; -fx-padding: 15; -fx-background-radius: 10;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <!-- Tabs -->
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Button fx:id="billsTabBtn" mnemonicParsing="false" onAction="#showBillsTab" style="-fx-background-color: #4fc3f7; -fx-text-fill: #000; -fx-padding: 8 20; -fx-font-weight: bold; -fx-cursor: hand;" text="My Bills">
+                                            <graphic>
+                                                <FontAwesomeIconView glyphName="FILE_TEXT" size="14" />
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="paymentsTabBtn" mnemonicParsing="false" onAction="#showPaymentsTab" style="-fx-background-color: #3a3a3a; -fx-text-fill: #e0e0e0; -fx-padding: 8 20; -fx-cursor: hand;" text="Payment History">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="#e0e0e0" glyphName="HISTORY" size="14" />
+                                            </graphic>
+                                        </Button>
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Button mnemonicParsing="false" onAction="#handleRefresh" style="-fx-background-color: #0d6efd; -fx-text-fill: white; -fx-padding: 5 15; -fx-cursor: hand;" text="Refresh">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="REFRESH" size="12" />
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </HBox>
+
+                                <!-- Bills Content -->
+                                <ScrollPane fx:id="billsScrollPane" fitToWidth="true" style="-fx-background: #2a2a2a; -fx-background-color: #2a2a2a;" VBox.vgrow="ALWAYS">
+                                    <content>
+                                        <FlowPane fx:id="billsFlowPane" hgap="10.0" vgap="10.0" style="-fx-padding: 5; -fx-background-color: #2a2a2a;" />
+                                    </content>
+                                </ScrollPane>
+
+                                <!-- Payments Content -->
+                                <ScrollPane fx:id="paymentsScrollPane" fitToWidth="true" style="-fx-background: #2a2a2a; -fx-background-color: #2a2a2a;" VBox.vgrow="ALWAYS" visible="false" managed="false">
+                                    <content>
+                                        <VBox fx:id="paymentsVBox" spacing="10.0" style="-fx-padding: 5; -fx-background-color: #2a2a2a;" />
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
+

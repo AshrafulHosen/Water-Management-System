@@ -25,6 +25,8 @@ public class MainApplication extends Application {
         UIManager.preloadScene("UserDashboard.fxml");
         UIManager.preloadScene("AdminDashboard.fxml");
         UIManager.preloadScene("AnalyticsDashboard.fxml");
+        UIManager.preloadScene("BillingDashboard.fxml");
+        UIManager.preloadScene("UserBilling.fxml");
 
         Parent root = UIManager.getSceneRoot("Welcome.fxml");
         if (root == null) {

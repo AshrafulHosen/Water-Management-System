@@ -2,7 +2,6 @@ package com.example.watermanagementsystem;
 
 import com.example.watermanagementsystem.utils.UIManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,6 +18,7 @@ public class MainApplication extends Application {
         stage.initStyle(StageStyle.DECORATED);
 
         // Preload all scenes
+        UIManager.preloadScene("Welcome.fxml");
         UIManager.preloadScene("Login.fxml");
         UIManager.preloadScene("Register.fxml");
         UIManager.preloadScene("AdminLogin.fxml");
@@ -26,7 +26,10 @@ public class MainApplication extends Application {
         UIManager.preloadScene("AdminDashboard.fxml");
         UIManager.preloadScene("AnalyticsDashboard.fxml");
 
-        Parent root = UIManager.getSceneRoot("Login.fxml");
+        Parent root = UIManager.getSceneRoot("Welcome.fxml");
+        if (root == null) {
+            throw new RuntimeException("Failed to load Welcome.fxml");
+        }
         Scene scene = new Scene(root);
 
         stage.setTitle("Water Management System");

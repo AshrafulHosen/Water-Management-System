@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane fitToWidth="true" fitToHeight="true" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.watermanagementsystem.controllers.WelcomeController">
+    <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: #1e3a8a; -fx-padding: 50;">
+        <children>
+            <!-- Title -->
+            <VBox alignment="CENTER" spacing="10.0">
+                <children>
+                    <Label text="Water Management System" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="48.0" />
+                        </font>
+                    </Label>
+                    <Label text="Efficient Water Resource Management" textFill="#b0c4de">
+                        <font>
+                            <Font size="20.0" />
+                        </font>
+                    </Label>
+                </children>
+            </VBox>
+
+            <!-- Spacer to push button to center -->
+            <Region VBox.vgrow="ALWAYS" />
+
+            <!-- Join Now Button -->
+            <HBox alignment="CENTER">
+                <children>
+                    <Button mnemonicParsing="false" onAction="#handleJoinNowButton" prefWidth="200.0" prefHeight="60.0" style="-fx-background-color: #00cc99; -fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold; -fx-padding: 15;">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <text>Join Now</text>
+                    </Button>
+                </children>
+            </HBox>
+
+            <!-- Spacer to push button to center -->
+            <Region VBox.vgrow="ALWAYS" />
+
+            <!-- Footer -->
+            <Label text="© 2026 Water Management System - All Rights Reserved" textFill="#808080">
+                <font>
+                    <Font size="12.0" />
+                </font>
+            </Label>
+        </children>
+    </VBox>
+</ScrollPane>
